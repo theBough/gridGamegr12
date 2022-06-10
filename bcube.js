@@ -11,6 +11,7 @@ function createBigCube(){
   }
   bc.onRelease = function(){
     bc.isPressed = false;
+    checkBigCube();
     bc.x = Math.floor(bc.x / 30)*30
     bc.y = Math.floor(bc.y / 30)*30
     placeBigCube();
