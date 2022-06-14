@@ -48,19 +48,21 @@ function draw() {
   if (c.isPressed) {
     c.locate(mouseX, mouseY);
   } //end if
+  
 } //end draw
 function changeRowColor(thisRow){
   /*Change the color of an entire row
   back to the original color.
   */
   for(i=0 ; i<10 ; i++){
-    g[thisRow][i].color = "purple";
+    g[i][thisRow].color = "purple";
   }
+  
 }
 function isRowComplete(thisRow){
   //checks to see if a row is completed.
   for( i=0 ; i<10 ; i++){
-    if(g[thisRow][i].color == "purple"){
+    if(g[i][thisRow].color == "purple"){
       return false;
     }//end if
   }//end loop
