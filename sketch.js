@@ -1,4 +1,5 @@
 let shapeNumberPlaced = 0;
+const SHAPE_I_HAVE= 5;
 function setup() {
   createCanvas(400, 600);
   createGrid();
@@ -6,6 +7,7 @@ function setup() {
   createEl();
   createelf();
   createEs()
+  createBigCube()
   placeShapes();
 }
 function draw() {
@@ -25,7 +27,12 @@ function draw() {
   
   es.draw()
   es2.draw()
+  
+  bc.draw();
 
+  if (bc.isPressed) {
+    bc.locate(mouseX, mouseY);
+  } //end if
   if (el.isPressed) {
     el.locate(mouseX, mouseY);
     el2.locate(mouseX, mouseY + 30);
@@ -42,6 +49,23 @@ function draw() {
     c.locate(mouseX, mouseY);
   } //end if
 } //end draw
+function changeRowColor(thisRow){
+  /*Change the color of an entire row
+  back to the original color.
+  */
+  for(i=0 ; i<10 ; i++){
+    g[thisRow][i].color = "purple";
+  }
+}
+function isRowComplete(thisRow){
+  //checks to see if a row is completed.
+  for( i=0 ; i<10 ; i++){
+    if(g[thisRow][i].color == "purple"){
+      return false;
+    }//end if
+  }//end loop
+  return true;
+}//end isRowComplete
 function placeShapes() {
   /*this will randomly select 3 shapes
   and place them below the grid
@@ -49,9 +73,9 @@ function placeShapes() {
   let numsUsed = []
   numsUsed.push(-1)
   for (i = 0; i < 3; i++) {
-    let rndNum = Math.floor(random(4));
+    let rndNum = Math.floor(random(SHAPE_I_HAVE));
     while(numsUsed.includes(rndNum)){
-      rndNum = Math.floor(random(4));
+      rndNum = Math.floor(random(SHAPE_I_HAVE));
     }
     numsUsed.push(rndNum)
     /*Each if block will represent a 
@@ -80,8 +104,11 @@ function placeShapes() {
       es2.y = es.y + 30;
       es.y = 360;
       es2.y = 390;
-    } //end if
-    rndNum = Math.floor(random(4));
+    }else if (rndNum == 4) {
+      bc.x = 30 + i * 125;
+      bc.y = 360;
+          } //end if
+    rndNum = Math.floor(random(SHAPE_I_HAVE));
   }
 }
 function checkForThree(){
